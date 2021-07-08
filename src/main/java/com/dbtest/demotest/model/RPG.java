@@ -1,10 +1,24 @@
 package com.dbtest.demotest.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "rpglist1")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class RPG {
+    @Id
+    @Column(name="id")
+    @SequenceGenerator(name = "rpgIdSeq", sequenceName = "rpg_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rpgIdSeq")
     private Integer id;
-    private String gameName;
+
+    @Column(name = "author")
     private String author;
 
+    @Column(name = "title")
+    private String title;
 
 
     public Integer getId() {
@@ -16,13 +30,6 @@ public class RPG {
     }
 
 
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
-    }
-
-    public String getGameName() {
-        return gameName;
-    }
 
     public String getAuthor() {
         return author;
@@ -30,5 +37,13 @@ public class RPG {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+
+    public void settitle(String title) {
+        this.title = title;
+    }
+    public String gettitle() {
+        return title;
     }
 }

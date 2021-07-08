@@ -1,6 +1,8 @@
 package com.dbtest.demotest.service;
 
 import com.dbtest.demotest.model.RPG;
+import com.dbtest.demotest.repository.RpgRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,28 +13,32 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class RPGServiceImp implements RPGService {
-    private static final Map<Integer, RPG> RPG_REPOSITORY_MAP = new HashMap<>();
-    private static final AtomicInteger RPG_ID_HOLDER = new AtomicInteger();
 
+    //@Autowired
+   //private RpgRepository rpgRepository;
+    private final RpgRepository rpgRepository;
+
+    public RPGServiceImp (RpgRepository rpgRepository) {
+        this.rpgRepository = rpgRepository;
+    }
     @Override
     public void create(RPG rpg) {
-        final int rpgId =  RPG_ID_HOLDER.incrementAndGet();
-        rpg.setId(rpgId);
-        RPG_REPOSITORY_MAP.put(rpgId, rpg);
+        rpgRepository.save(rpg);
     }
     @Override
     public List<RPG> readAll() {
-        return new ArrayList<>(RPG_REPOSITORY_MAP.values());
+        return rpgRepository.findAll();
     }
     @Override
     public RPG read(int id) {
-        return RPG_REPOSITORY_MAP.get(id);
+
+        return rpgRepository.getOne(id);
     }
     @Override
     public boolean update(RPG rpg, int id) {
-        if (RPG_REPOSITORY_MAP.containsKey(id)) {
-            rpg.setId(id);
-            RPG_REPOSITORY_MAP.put(id, rpg);
+        if (rpgRepository.existsById(id)) {
+            rpg.setId((id));
+            rpgRepository.save((rpg));
             return true;
         }
 
@@ -40,6 +46,10 @@ public class RPGServiceImp implements RPGService {
     }
     @Override
     public boolean delete(int id) {
-        return RPG_REPOSITORY_MAP.remove(id) != null;
+        if (rpgRepository.existsById(id)) {
+            rpgRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
