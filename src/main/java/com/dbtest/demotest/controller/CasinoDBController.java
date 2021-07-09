@@ -11,13 +11,15 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5432")
-public class RPGController {
+public class CasinoDBController {
     private final RPGService rpgService;
 
     @Autowired
-    public RPGController(RPGService rpgService) {
+    public CasinoDBController(RPGService rpgService) {
         this.rpgService =  rpgService;
     }
+
+
     @PostMapping(value = "/RPG")
     public ResponseEntity<?> create(@RequestBody RPG RPG) {
         rpgService.create(RPG);
