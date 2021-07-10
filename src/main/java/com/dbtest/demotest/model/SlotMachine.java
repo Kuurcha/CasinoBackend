@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SlotMachines")
+@Table(name = "slotMachines")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class SlotMachine implements ModelBase {
     @Id
@@ -61,6 +61,7 @@ public class SlotMachine implements ModelBase {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

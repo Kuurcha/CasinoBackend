@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "Workers")
+@Table(name = "workers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Worker implements ModelBase{
 
@@ -64,6 +64,7 @@ public class Worker implements ModelBase{
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

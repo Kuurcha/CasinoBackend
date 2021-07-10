@@ -1,43 +1,41 @@
-package com.dbtest.demotest.service;
 
-import com.dbtest.demotest.model.RPG;
+package com.dbtest.demotest.service;
 
 import java.util.List;
 
-public interface  RPGService {
-    /**
-     * Создает нового клиента
-     * @param rpg - объект типа ролевой игры для создания записи
-     */
-    void create(RPG rpg);
+public interface IBaseService<T> {
 
     /**
-     * Возвращает список всей RPG записей из бд
-     * @return список всей RPG записей из бд
+     * Создает нового клиента
+     * @param modelBase- объект типа ModelBase для создания записи
      */
-    List<RPG> readAll();
+    void create(T modelBase);
+
+    /**
+     * Возвращает список всей ModelBase записей из бд
+     * @return список всей ModelBase записей из бд
+     */
+    List<T> readAll();
 
     /**
      * Возвращает RPG запись по ее id
-     * @param id - ID RPG
+     * @param id - ID ModelBase
      * @return объект записи с указанным Id
      */
-    RPG read(int id);
+    T read(int id);
 
     /**
      * Обновлени клиента в базе данных
-     * @param rpg объект типа RPG заменяющий текущий в базе данных
+     * @param modelBase объект типа ModelBase заменяющий текущий в базе данных
      * @param id - ID RPG который надо заменить
      * @return успех выполнения операции
      */
-    boolean update(RPG rpg, int id);
+    boolean update(T modelBase, int id);
 
     /**
      * Удаляет объект по заданному ID из базы данных
-     * @param id - ID RPG который надо удалить
+     * @param id - ID объекта который надо удалить
      * @return успех выполнения операции
      */
     boolean delete(int id);
-
-
 }

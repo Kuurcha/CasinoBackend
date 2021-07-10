@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Companies")
+@Table(name = "companies")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company implements ModelBase {
     @Id
@@ -52,6 +52,7 @@ public class Company implements ModelBase {
         return id;
     }
 
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

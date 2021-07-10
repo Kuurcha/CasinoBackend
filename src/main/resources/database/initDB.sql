@@ -6,13 +6,16 @@ CREATE TABLE IF NOT EXISTS companies
     CEO VARCHAR(100) NOT NULL,
     sharePrice real NOT NULL
 );
---DROP TABLE IF EXISTS casinoList;
-CREATE TABLE IF NOT EXISTS casinoList
+CREATE SEQUENCE IF NOT EXISTS companies_id_seq START WITH 1 INCREMENT BY 1;
+--DROP TABLE IF EXISTS casino_list;
+CREATE TABLE IF NOT EXISTS casino_list
 (
-    casinoId INTEGER PRIMARY KEY ,
+    casino_id INTEGER PRIMARY KEY ,
     adress VARCHAR(250) NOT NULL ,
-    casinoNumber integer NOT NULL
+    casino_Number integer NOT NULL
 );
+--drop sequence if exists  casino_id_seq;
+CREATE SEQUENCE IF NOT EXISTS casino_id_seq START WITH 1 INCREMENT BY 1;
 --DROP TABLE IF EXISTS slotMachines;
 CREATE TABLE IF NOT EXISTS slotMachines
 (
@@ -22,6 +25,7 @@ CREATE TABLE IF NOT EXISTS slotMachines
     paymentDispersion real NOT NULL,
     cashRemains real not null
 );
+CREATE SEQUENCE IF NOT EXISTS slotMachines_id_seq START WITH 1 INCREMENT BY 1;
 --DROP TABLE IF EXISTS workers;
 CREATE TABLE IF NOT EXISTS workers
 (
@@ -31,5 +35,6 @@ CREATE TABLE IF NOT EXISTS workers
     salary real NOT NULL,
     dateOfBirth DATE not null
 );
+CREATE SEQUENCE IF NOT EXISTS workers_id_seq START WITH 1 INCREMENT BY 1;
 
 
