@@ -12,7 +12,8 @@ public class Worker implements ModelBase{
 
     @Id
     @Column(name="workerId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "workersIdGen", sequenceName = "Workers_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workersIdGen")
     private Integer id;
 
     @Column(name = "occupation")

@@ -10,13 +10,14 @@ import javax.persistence.*;
 public class SlotMachine implements ModelBase {
     @Id
     @Column(name="slotId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "slotMachinesIdGen", sequenceName = "slotMachines_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "slotMachinesIdGen")
     private Integer id;
 
     @Column(name = "slotNumber")
     private Integer slotNumber;
 
-    @Column(name = "gameName")
+    @Column(name = "game")
     private String gameName;
 
     @Column(name ="paymentDispersion")

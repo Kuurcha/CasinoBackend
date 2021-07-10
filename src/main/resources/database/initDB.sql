@@ -2,8 +2,8 @@
 CREATE TABLE IF NOT EXISTS companies
 (
     companyId INTEGER PRIMARY KEY ,
-    companyName VARCHAR(100) NOT NULL ,
-    CEO VARCHAR(100) NOT NULL,
+    companyName VARCHAR(120) NOT NULL ,
+    ceo VARCHAR(100) NOT NULL,
     sharePrice real NOT NULL
 );
 CREATE SEQUENCE IF NOT EXISTS companies_id_seq START WITH 1 INCREMENT BY 1;

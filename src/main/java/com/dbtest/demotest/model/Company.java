@@ -11,13 +11,14 @@ import javax.persistence.*;
 public class Company implements ModelBase {
     @Id
     @Column(name="companyId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "companiesIdGen", sequenceName = "companies_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "companiesIdGen")
     private Integer id;
 
     @Column(name = "companyName")
     private String companyName;
 
-    @Column(name = "CEO")
+    @Column(name = "ceo")
     private String CEO;
 
     @Column(name = "sharePrice")
@@ -30,6 +31,7 @@ public class Company implements ModelBase {
 
     public void setSharePrice(double sharePrice) {
         this.sharePrice = sharePrice;
+        //this.sharePrice = Double.parseDouble(sharePrice);
     }
 
     public String getCEO() {
