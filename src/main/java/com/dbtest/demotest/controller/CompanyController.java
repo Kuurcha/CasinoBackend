@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5432")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CompanyController extends BaseDBController<Company>{
     @Autowired
     public CompanyController(CompanyRepository companyRepository){
