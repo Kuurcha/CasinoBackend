@@ -1,7 +1,11 @@
 package com.dbtest.demotest.controller;
 
+import com.dbtest.demotest.model.CasinoBuilding;
+import com.dbtest.demotest.model.DTO.WorkerDTO;
+import com.dbtest.demotest.model.SlotMachine;
 import com.dbtest.demotest.model.Worker;
 import com.dbtest.demotest.model.Worker;
+import com.dbtest.demotest.model.mapper.DTOToEntity;
 import com.dbtest.demotest.repository.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class WorkerController extends BaseDBController<Worker> {
+public class WorkerController extends LinkController<Worker, CasinoBuilding> {
 
     @Autowired
     public WorkerController(WorkerRepository workerRepository){
@@ -20,8 +24,20 @@ public class WorkerController extends BaseDBController<Worker> {
     }
 
     @PostMapping(value = "/Worker")
-    public ResponseEntity<?> createCasinoBuilding(@RequestBody Worker company){
-        return this.create(company);
+    public ResponseEntity<?> createCasinoBuilding(@RequestBody WorkerDTO workerDTO){
+        Worker result = DTOToEntity.WorkerFromDTO(workerDTO);
+
+        Integer fkcasino_id = workerDTO.getFk_casino_id();
+        ResponseEntity<?> responseEntity = this.getLinkedObjectById(fkcasino_id);
+        if (responseEntity.getStatusCode() == HttpStatus.NOT_FOUND){
+            return new ResponseEntity<> (HttpStatus.FAILED_DEPENDENCY);
+        }
+        else
+        {
+            CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntity.getBody();
+            result.setCasinoBuildingWorker(casinoBuilding);
+            return this.create(result);
+        }
     }
     @GetMapping(value = "/Worker")
     public ResponseEntity<List<Worker>> readCasinoBuildings(){

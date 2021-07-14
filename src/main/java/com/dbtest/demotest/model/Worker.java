@@ -1,19 +1,21 @@
 package com.dbtest.demotest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "workers")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Worker implements ModelBase{
+public class Worker implements ModelBase, Serializable {
 
     @Id
     @Column(name="workerId")
     @SequenceGenerator(name = "workersIdGen", sequenceName = "Workers_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workersIdGen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "w  orkersIdGen")
     private Integer id;
 
     @Column(name = "occupation")
@@ -28,6 +30,9 @@ public class Worker implements ModelBase{
     @Column(name = "dateOfBirth")
     private Date dateOfBirth;
 
+    @ManyToOne(targetEntity = CasinoBuilding.class)
+    @JoinColumn(name="fk_casino_id",  referencedColumnName="casino_id")
+    private CasinoBuilding casinoBuildingWorker;
 
     public Date getDateOfBirth() {
         return dateOfBirth;
@@ -68,5 +73,13 @@ public class Worker implements ModelBase{
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public CasinoBuilding getCasinoBuildingWorker() {
+        return casinoBuildingWorker;
+    }
+
+    public void setCasinoBuildingWorker(CasinoBuilding casinoBuildingWorker) {
+        this.casinoBuildingWorker = casinoBuildingWorker;
     }
 }

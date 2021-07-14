@@ -1,13 +1,15 @@
 package com.dbtest.demotest.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "slotMachines")
+@Table(name = "slotMachines", uniqueConstraints = @UniqueConstraint(name = "UniqueCasino", columnNames = { "fk_casino_id", "slotNumber" }))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class SlotMachine implements ModelBase {
+public class SlotMachine implements ModelBase, Serializable {
     @Id
     @Column(name="slotId")
     @SequenceGenerator(name = "slotMachinesIdGen", sequenceName = "slotMachines_id_seq", allocationSize = 1)
@@ -25,6 +27,11 @@ public class SlotMachine implements ModelBase {
 
     @Column(name = "cashRemains")
     private double cashRemains;
+
+
+    @ManyToOne(targetEntity = CasinoBuilding.class)
+    @JoinColumn(name="fk_casino_id",  referencedColumnName="casino_id")
+    private CasinoBuilding casinoBuildingSlot;
 
     public double getCashRemains() {
         return cashRemains;
@@ -65,5 +72,13 @@ public class SlotMachine implements ModelBase {
     @Override
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public CasinoBuilding getCasinoBuildingSlot() {
+        return casinoBuildingSlot;
+    }
+
+    public void setCasinoBuildingSlot(CasinoBuilding casinoBuildingSlot) {
+        this.casinoBuildingSlot = casinoBuildingSlot;
     }
 }

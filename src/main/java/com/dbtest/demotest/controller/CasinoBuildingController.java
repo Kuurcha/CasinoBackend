@@ -15,9 +15,12 @@ public class CasinoBuildingController extends  BaseDBController<CasinoBuilding> 
     public CasinoBuildingController(CasinoBuildingRepository casinoBuildingRepository) {
         this.repository = casinoBuildingRepository;
     }
+
+
+
     @PostMapping(value = "/CasinoBuilding")
-    public ResponseEntity<?> createCasinoBuilding(@RequestBody CasinoBuilding CasinoBuilding){
-        return this.create(CasinoBuilding);
+    public ResponseEntity<?> createCasinoBuilding(@RequestBody CasinoBuilding casinoBuilding){
+        return this.create(casinoBuilding);
     }
     @GetMapping(value = "/CasinoBuilding")
     public ResponseEntity<List<CasinoBuilding>> readCasinoBuildings(){
