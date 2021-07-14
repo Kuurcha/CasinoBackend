@@ -34,17 +34,8 @@ public class SlotMachineController extends LinkController<SlotMachine, CasinoBui
         ResponseEntity<?> responseEntity = this.getLinkedObjectById(fkcasino_id);
         System.out.println(responseEntity.getStatusCode());
         CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntity.getBody();
-        System.out.println("test");
-        if (casinoBuilding == null){
-            return new ResponseEntity<> (HttpStatus.FAILED_DEPENDENCY);
-        }
-        else
-        {
-            //CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntity.getBody();
-            result.setCasinoBuildingSlot(casinoBuilding);
-            return this.create(result);
-        }
-
+        result.setCasinoBuildingSlot(casinoBuilding);
+        return this.create(result);
     }
 
     @GetMapping(value = "/SlotMachine")

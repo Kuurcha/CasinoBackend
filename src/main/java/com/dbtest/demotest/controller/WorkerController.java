@@ -26,18 +26,12 @@ public class WorkerController extends LinkController<Worker, CasinoBuilding> {
     @PostMapping(value = "/Worker")
     public ResponseEntity<?> createCasinoBuilding(@RequestBody WorkerDTO workerDTO){
         Worker result = DTOToEntity.WorkerFromDTO(workerDTO);
-
         Integer fkcasino_id = workerDTO.getFk_casino_id();
         ResponseEntity<?> responseEntity = this.getLinkedObjectById(fkcasino_id);
-        if (responseEntity.getStatusCode() == HttpStatus.NOT_FOUND){
-            return new ResponseEntity<> (HttpStatus.FAILED_DEPENDENCY);
-        }
-        else
-        {
-            CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntity.getBody();
-            result.setCasinoBuildingWorker(casinoBuilding);
-            return this.create(result);
-        }
+        CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntity.getBody();
+        result.setCasinoBuildingWorker(casinoBuilding);
+        return this.create(result);
+
     }
     @GetMapping(value = "/Worker")
     public ResponseEntity<List<Worker>> readCasinoBuildings(){

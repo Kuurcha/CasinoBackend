@@ -1,5 +1,7 @@
 package com.dbtest.demotest.model.mapper;
 
+import com.dbtest.demotest.model.CasinoBuilding;
+import com.dbtest.demotest.model.DTO.CasinoBuildingDTO;
 import com.dbtest.demotest.model.DTO.SlotMachineDTO;
 import com.dbtest.demotest.model.DTO.WorkerDTO;
 import com.dbtest.demotest.model.SlotMachine;
@@ -21,6 +23,12 @@ public class DTOToEntity {
         result.setOccupation(workerkDTO.getOccupation());
         result.setFullName(workerkDTO.getFullName());
         result.setSalary(workerkDTO.getSalary());
+        return result;
+    }
+    public static CasinoBuilding CasinoBuildingFromDTO(CasinoBuildingDTO casinoBuildingDTO){
+        CasinoBuilding result = new CasinoBuilding();
+        result.setBuildingNumber(casinoBuildingDTO.getBuildingNumber());
+        result.setAdress(casinoBuildingDTO.getAdress());
         return result;
     }
 }
