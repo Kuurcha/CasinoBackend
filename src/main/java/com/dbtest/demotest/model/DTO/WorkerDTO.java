@@ -16,6 +16,16 @@ public class WorkerDTO {
 
     private Integer fk_casino_id;
 
+    public String toString() {
+        return String.format(
+                        "occupation: " + occupation + System.lineSeparator()  +
+                        "Full name: " + fullName + System.lineSeparator() +
+                        "salary: " + salary + System.lineSeparator() +
+                        "dateOfBirth: " + dateOfBirth + System.lineSeparator() +
+                        "fk_casino_id: " + fk_casino_id + System.lineSeparator()
+        );
+    }
+
     public String getOccupation() {
         return occupation;
     }
@@ -49,9 +59,8 @@ public class WorkerDTO {
     }
 
     public Integer getFk_casino_id() {
-        return fk_casino_id;
+      return this.fk_casino_id;
     }
-
     public void setFk_casino_id(Integer fk_casino_id) {
         this.fk_casino_id = fk_casino_id;
     }

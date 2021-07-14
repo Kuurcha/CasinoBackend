@@ -15,7 +15,7 @@ public class Worker implements ModelBase, Serializable {
     @Id
     @Column(name="workerId")
     @SequenceGenerator(name = "workersIdGen", sequenceName = "Workers_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "w  orkersIdGen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "workersIdGen")
     private Integer id;
 
     @Column(name = "occupation")
@@ -33,6 +33,8 @@ public class Worker implements ModelBase, Serializable {
     @ManyToOne(targetEntity = CasinoBuilding.class)
     @JoinColumn(name="fk_casino_id",  referencedColumnName="casino_id")
     private CasinoBuilding casinoBuildingWorker;
+
+
 
     public Date getDateOfBirth() {
         return dateOfBirth;

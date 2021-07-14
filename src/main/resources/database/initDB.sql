@@ -15,12 +15,12 @@ CREATE TABLE IF NOT EXISTS casino_list
     casino_id INTEGER PRIMARY KEY ,
     adress VARCHAR(250) NOT NULL ,
     casino_Number integer NOT NULL,
-    FK_companyID integer not null,
-    foreign key (FK_companyID) references companies(companyId) ON DELETE CASCADE,
-    unique (FK_companyID, casino_Number)
+    FK_company_id integer not null,
+    foreign key (FK_company_id) references companies(companyId) ON DELETE CASCADE,
+    unique (FK_company_id, casino_Number)
 );
 drop sequence if exists  casino_id_seq;
-CREATE SEQUENCE IF NOT EXISTS casino_id_seq START WITH 4 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS casino_id_seq START WITH 5 INCREMENT BY 1;
 DROP TABLE IF EXISTS slotMachines CASCADE;;
 CREATE TABLE IF NOT EXISTS slotMachines
 (
@@ -47,6 +47,6 @@ CREATE TABLE IF NOT EXISTS workers
     FOREIGN KEY(FK_casino_id) references casino_list(casino_id) ON DELETE CASCADE
 );
 drop sequence if exists  workers_id_seq ;
-CREATE SEQUENCE IF NOT EXISTS workers_id_seq START WITH 13 INCREMENT BY 1;
+CREATE SEQUENCE IF NOT EXISTS workers_id_seq START WITH 15 INCREMENT BY 1;
 
 

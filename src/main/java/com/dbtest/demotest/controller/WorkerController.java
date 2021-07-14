@@ -6,6 +6,7 @@ import com.dbtest.demotest.model.SlotMachine;
 import com.dbtest.demotest.model.Worker;
 import com.dbtest.demotest.model.Worker;
 import com.dbtest.demotest.model.mapper.DTOToEntity;
+import com.dbtest.demotest.repository.CasinoBuildingRepository;
 import com.dbtest.demotest.repository.WorkerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,15 +20,19 @@ import java.util.List;
 public class WorkerController extends LinkController<Worker, CasinoBuilding> {
 
     @Autowired
-    public WorkerController(WorkerRepository workerRepository){
+    public WorkerController(WorkerRepository workerRepository, CasinoBuildingRepository casinoBuildingRepository
+                            ){
         this.repository = workerRepository;
+        this.linkRepository = casinoBuildingRepository;
     }
 
     @PostMapping(value = "/Worker")
     public ResponseEntity<?> createCasinoBuilding(@RequestBody WorkerDTO workerDTO){
+        System.out.println("createWorker" + System.lineSeparator() + workerDTO.toString());
         Worker result = DTOToEntity.WorkerFromDTO(workerDTO);
-        Integer fkcasino_id = workerDTO.getFk_casino_id();
-        ResponseEntity<?> responseEntity = this.getLinkedObjectById(fkcasino_id);
+        Integer fk_casino_id = workerDTO.getFk_casino_id();
+
+        ResponseEntity<?> responseEntity = this.getLinkedObjectById(fk_casino_id);
         CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntity.getBody();
         result.setCasinoBuildingWorker(casinoBuilding);
         return this.create(result);

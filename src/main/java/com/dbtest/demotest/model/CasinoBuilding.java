@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "casino_List", schema = "public", uniqueConstraints = @UniqueConstraint(name = "UniqueCompanyAndNumber", columnNames = { "fk_companyId", "casino_number" }))
+@Table(name = "casino_List", schema = "public", uniqueConstraints = @UniqueConstraint(name = "UniqueCompanyAndNumber", columnNames = { "fk_company_Id", "casino_number" }))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class CasinoBuilding implements ModelBase, Serializable {
     @Id
@@ -26,7 +26,7 @@ public class CasinoBuilding implements ModelBase, Serializable {
     private Integer  buildingNumber;
 
     @ManyToOne(targetEntity = Company.class)
-    @JoinColumn(name="fk_companyId", referencedColumnName="companyID")
+    @JoinColumn(name="fk_company_Id", referencedColumnName="companyID")
     private Company CBcompany;
 
     @OneToMany(mappedBy = "casinoBuildingWorker", cascade = CascadeType.ALL)
