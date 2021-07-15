@@ -19,7 +19,7 @@ public class ErrorController extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {org.hibernate.exception.ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintException(org.hibernate.exception.ConstraintViolationException ex, WebRequest request){
         String ErrorMessageDescription = ex.getCause().getLocalizedMessage();
-        HttpStatus errorStatus = HttpStatus.I_AM_A_TEAPOT;
+        HttpStatus errorStatus = HttpStatus.FAILED_DEPENDENCY;
         Integer errorStatusCode =  new ResponseEntity(errorStatus).getStatusCodeValue();
         Error errorMessage = new Error(new Date(), "Нарушение целостности связей в таблице!  " + ErrorMessageDescription, errorStatus.toString() + " " , errorStatusCode.toString());
 
@@ -28,17 +28,18 @@ public class ErrorController extends ResponseEntityExceptionHandler {
         );
 
     }
-//    @ExceptionHandler(value = { NullPointerException.class} )
-//    public ResponseEntity<Object> handleNullException(Exception ex, WebRequest request){
-//        String ErrorMessageDescription = ex.getMessage();
-//        HttpStatus errorStatus = HttpStatus.I_AM_A_TEAPOT;
-//        Integer errorStatusCode =  new ResponseEntity(errorStatus).getStatusCodeValue();
-//        Error errorMessage = new Error(new Date(), "Одно из значений задано неверно по формату!  " + ErrorMessageDescription, errorStatus.toString() + " " , errorStatusCode.toString());
-//
-//        return new ResponseEntity<>(
-//                errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR
-//        );
-//
-//    }
+    @ExceptionHandler(value = { NullPointerException.class} )
+    public ResponseEntity<Object> handleNullException(Exception ex, WebRequest request){
+        String ErrorMessageDescription = ex.getMessage();
+        HttpStatus errorStatus = HttpStatus.I_AM_A_TEAPOT;
+        Integer errorStatusCode =  new ResponseEntity(errorStatus).getStatusCodeValue();
+        Error errorMessage = new Error(new Date(), "Одно из значений задано неверно по формату!  " + ErrorMessageDescription, errorStatus.toString() + " " , errorStatusCode.toString());
+
+        return new ResponseEntity<>(
+                errorMessage, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR
+        );
+
+    }
+
 
 }

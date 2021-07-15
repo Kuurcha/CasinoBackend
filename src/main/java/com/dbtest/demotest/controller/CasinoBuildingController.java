@@ -43,10 +43,15 @@ public class CasinoBuildingController extends LinkController<CasinoBuilding, Com
         return read((id));
     }
     @PutMapping(value = "/CasinoBuilding/{id}")
-    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody CasinoBuilding casinoBuilding) {
+    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody CasinoBuildingDTO casinoBuildingDTO) {
+        CasinoBuilding casinoBuilding = DTOToEntity.CasinoBuildingFromDTO(casinoBuildingDTO);
+        Integer fk_company_id = casinoBuildingDTO.getFk_company_id();
+        ResponseEntity<?> responseEntityLink = this.getLinkedObjectById(fk_company_id);
+        Company company = (Company) responseEntityLink.getBody();
+        casinoBuilding.setCBcompany(company);
+        casinoBuilding.setId(id);
         ResponseEntity<?> responseEntity = update(id, casinoBuilding);
-        if (responseEntity.equals(HttpStatus.OK))
-            casinoBuilding.setId(id);
+
         return responseEntity;
     }
     @DeleteMapping(value = "/CasinoBuilding/{id}")

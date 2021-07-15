@@ -1,9 +1,7 @@
 package com.dbtest.demotest.controller;
 
-import com.dbtest.demotest.model.CasinoBuilding;
+import com.dbtest.demotest.model.*;
 import com.dbtest.demotest.model.DTO.WorkerDTO;
-import com.dbtest.demotest.model.SlotMachine;
-import com.dbtest.demotest.model.Worker;
 import com.dbtest.demotest.model.Worker;
 import com.dbtest.demotest.model.mapper.DTOToEntity;
 import com.dbtest.demotest.repository.CasinoBuildingRepository;
@@ -47,10 +45,14 @@ public class WorkerController extends LinkController<Worker, CasinoBuilding> {
         return read((id));
     }
     @PutMapping(value = "/Worker/{id}")
-    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody Worker worker) {
+    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody WorkerDTO workerDTO) {
+        Worker worker = DTOToEntity.WorkerFromDTO(workerDTO);
+        Integer fk_casino_id = workerDTO.getFk_casino_id();
+        ResponseEntity<?> responseEntityLink = this.getLinkedObjectById(fk_casino_id);
+        CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntityLink.getBody();
+        worker.setCasinoBuildingWorker(casinoBuilding);
+        worker.setId(id);
         ResponseEntity<?> responseEntity = update(id, worker);
-        if (responseEntity.equals(HttpStatus.OK))
-            worker.setId(id);
         return responseEntity;
     }
     @DeleteMapping(value = "/Worker/{id}")

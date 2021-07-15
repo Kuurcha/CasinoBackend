@@ -47,10 +47,16 @@ public class SlotMachineController extends LinkController<SlotMachine, CasinoBui
         return read((id));
     }
     @PutMapping(value = "/SlotMachine/{id}")
-    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody SlotMachine slotMachine) {
+    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody SlotMachineDTO slotMachineDTO) {
+       SlotMachine slotMachine = DTOToEntity.SlotMachineFromDTO(slotMachineDTO);
+        Integer fk_casino_id = slotMachineDTO.getfk_casino_id();
+        System.out.println("update !! " + slotMachineDTO.toString());
+        ResponseEntity<?> responseEntityLink = this.getLinkedObjectById(fk_casino_id);
+        CasinoBuilding casinoBuilding = (CasinoBuilding) responseEntityLink.getBody();
+        slotMachine.setCasinoBuildingSlot(casinoBuilding);
+        slotMachine.setId(id);
         ResponseEntity<?> responseEntity = update(id, slotMachine);
-        if (responseEntity.equals(HttpStatus.OK))
-            slotMachine.setId(id);
+        System.out.println("id" + id);
         return responseEntity;
     }
     @DeleteMapping(value = "/SlotMachine/{id}")
