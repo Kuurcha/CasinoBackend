@@ -30,7 +30,7 @@ public class CompanyController extends BaseDBController<Company>{
         return read((id));
     }
     @PutMapping(value = "/Company/{id}")
-    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody Company company) {
+    public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody Company    company) {
         ResponseEntity<?> responseEntity = update(id, company);
         if (responseEntity.equals(HttpStatus.OK))
             company.setId(id);

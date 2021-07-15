@@ -28,8 +28,8 @@ public class ErrorController extends ResponseEntityExceptionHandler {
         );
 
     }
-    @ExceptionHandler(value = { NullPointerException.class} )
-    public ResponseEntity<Object> handleNullException(Exception ex, WebRequest request){
+    @ExceptionHandler(value = { NullPointerException.class, org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class} )
+    public ResponseEntity<Object> handleWrongFormat(Exception ex, WebRequest request){
         String ErrorMessageDescription = ex.getMessage();
         HttpStatus errorStatus = HttpStatus.I_AM_A_TEAPOT;
         Integer errorStatusCode =  new ResponseEntity(errorStatus).getStatusCodeValue();

@@ -10,6 +10,7 @@ import com.dbtest.demotest.repository.SlotMachineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,7 +47,7 @@ public class SlotMachineController extends LinkController<SlotMachine, CasinoBui
     public ResponseEntity<SlotMachine> readCasinoBuildingById(@PathVariable(name = "id") int id) {
         return read((id));
     }
-    @PutMapping(value = "/SlotMachine/{id}")
+    @PutMapping(value = "/SlotMachine/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateCasinoBuilding(@PathVariable(name = "id") int id, @RequestBody SlotMachineDTO slotMachineDTO) {
        SlotMachine slotMachine = DTOToEntity.SlotMachineFromDTO(slotMachineDTO);
         Integer fk_casino_id = slotMachineDTO.getfk_casino_id();
